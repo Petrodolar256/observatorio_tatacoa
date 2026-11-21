@@ -8,6 +8,18 @@ La idea completa cabe en una frase:
 
 ![Página de inicio](docs/evidencias/inicio.png)
 
+## Contenido
+
+1. [Integrantes](#integrantes)
+2. [Descripción del tema](#descripción-del-tema)
+3. [Modelo Entidad-Relación](#modelo-entidad-relación)
+4. [Tecnologías](#tecnologías)
+5. [Instalación y ejecución](#instalación-y-ejecución)
+6. [Capturas de la aplicación](#capturas-de-la-aplicación)
+7. [Pruebas](#pruebas)
+8. [Estructura del proyecto](#estructura-del-proyecto)
+9. [Cómo se cumple cada requisito técnico](#cómo-se-cumple-cada-requisito-técnico)
+
 ## Integrantes
 
 | Nombre | Código |
@@ -49,7 +61,7 @@ Python 3 · Flask · PostgreSQL · psycopg2 · HTML5 · Jinja2 · Bootstrap 5 ·
 
 ## Instalación y ejecución
 
-### Antes de empezar
+### Requisitos
 
 Se necesita tener instalado:
 
@@ -102,7 +114,7 @@ En **macOS o Linux**:
 cp .env.example .env
 ```
 
-Abre el archivo `.env` y cambia `DB_PASSWORD` por la contraseña de tu PostgreSQL. El archivo `.env` no se sube a GitHub.
+Abre el archivo `.env` y cambia `DB_PASSWORD` por la contraseña de tu PostgreSQL. Si tu PostgreSQL usa otro puerto o usuario, cambia también `DB_PORT` o `DB_USER`. El archivo `.env` no se sube a GitHub.
 
 ### Paso 4. Crear la base de datos
 
@@ -136,10 +148,10 @@ Abre en el navegador: **<http://127.0.0.1:5001>**
 
 Para detenerla, presiona `Ctrl + C` en la terminal.
 
-### ¿Algo no funciona?
+### Problemas frecuentes
 
 - Si la página dice **«No se pudo conectar a PostgreSQL»**, ahí mismo aparece la lista de lo que hay que revisar: que el servidor esté encendido, el archivo `.env` y que la base de datos exista.
-- Para comprobar en segundos que las 5 tablas funcionan, ejecuta las pruebas automáticas con `pytest`.
+- Para comprobar en segundos que las 5 tablas funcionan, ejecuta las pruebas automáticas (ver [Pruebas](#pruebas)).
 
 ## Capturas de la aplicación
 
@@ -168,9 +180,13 @@ Para detenerla, presiona `Ctrl + C` en la terminal.
 - **Plan de pruebas funcionales:** 35 casos, cada uno con su captura de pantalla, en [`docs/04_plan_de_pruebas.md`](docs/04_plan_de_pruebas.md).
 - **Pruebas automáticas:** los mismos 35 casos, más 12 pruebas generales, escritos con pytest en la carpeta [`tests/`](tests). Usan una base de datos aparte, así que no tocan los datos reales.
 
+Para ejecutarlas, con PostgreSQL encendido y el entorno virtual activado, desde la carpeta del proyecto:
+
 ```
 pytest
 ```
+
+El resultado esperado es `47 passed`.
 
 ## Enfoque AI-first
 
