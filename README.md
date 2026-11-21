@@ -188,15 +188,6 @@ pytest
 
 El resultado esperado es `47 passed`.
 
-## Enfoque AI-first
-
-Desarrollamos este proyecto con un enfoque *AI-first*: usamos un asistente de inteligencia artificial (Claude) para escribir el código y los documentos, a partir de la guía del proyecto y de nuestras decisiones.
-
-- **Lo que decidimos nosotros:** elegimos el tema entre varias propuestas, aprobamos el modelo de datos y definimos el estilo del código.
-- **Lo que hizo la IA:** el código, los scripts de la base de datos, las pruebas automáticas, la ejecución de los casos de prueba en el navegador con sus capturas, y la documentación.
-- **Cómo se comprobó:** nada se dio por bueno sin ejecutarlo. Hay 47 pruebas automáticas, 35 casos de prueba con captura de pantalla, y el respaldo se restauró en una base de datos nueva.
-- **Lo que sigue siendo nuestro:** entender cada parte del proyecto, volver a probarlo y sustentarlo.
-
 ## Estructura del proyecto
 
 ```
@@ -250,3 +241,7 @@ observatorio_tatacoa/
 | Credenciales en `.env` | `config.py` lee el `.env`; se sube solo `.env.example` |
 | `requirements.txt` y entorno virtual | `requirements.txt`; `.venv/` está en `.gitignore` |
 | Eliminar con confirmación previa | `templates/confirmar_eliminacion.html` |
+
+---
+
+*Durante el desarrollo nos apoyamos en herramientas de IA; todo lo revisamos, lo probamos y lo verificamos nosotros.*
