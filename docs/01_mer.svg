@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" width="1200" height="690" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="600" y="46" text-anchor="middle" font-size="26" font-weight="700" fill="#0f1b3d">Modelo Entidad-Relación · Observatorio Astronómico de la Tatacoa</text>
+  <text x="600" y="74" text-anchor="middle" font-size="15" fill="#5b6270">Base de datos observatorio_tatacoa · 5 tablas en Tercera Forma Normal (3FN)</text>
+  <polyline points="195,248 195,390" fill="none" stroke="#4a5060" stroke-width="2"/>
+  <text x="205" y="270" font-size="17" font-weight="700" fill="#0f1b3d">1</text>
+  <text x="205" y="382" font-size="17" font-weight="700" fill="#8a6200">N</text>
+  <text x="207" y="326" font-size="13" font-style="italic" fill="#5b6270">clasifica</text>
+  <polyline points="350,445 398,445 398,355 445,355" fill="none" stroke="#4a5060" stroke-width="2"/>
+  <text x="356" y="437" font-size="17" font-weight="700" fill="#0f1b3d">1</text>
+  <text x="424" y="347" font-size="17" font-weight="700" fill="#8a6200">N</text>
+  <text x="356" y="464" font-size="13" font-style="italic" fill="#5b6270">se observa en</text>
+  <polyline points="850,165 803,165 803,295 755,295" fill="none" stroke="#4a5060" stroke-width="2"/>
+  <text x="834" y="157" font-size="17" font-weight="700" fill="#0f1b3d">1</text>
+  <text x="762" y="287" font-size="17" font-weight="700" fill="#8a6200">N</text>
+  <text x="758" y="158" font-size="13" font-style="italic" fill="#5b6270">realiza</text>
+  <polyline points="850,445 815,445 815,325 755,325" fill="none" stroke="#4a5060" stroke-width="2"/>
+  <text x="834" y="437" font-size="17" font-weight="700" fill="#0f1b3d">1</text>
+  <text x="762" y="317" font-size="17" font-weight="700" fill="#8a6200">N</text>
+  <text x="770" y="464" font-size="13" font-style="italic" fill="#5b6270">se usa en</text>
+  <rect x="40" y="110" width="310" height="138" fill="#eef1fa" stroke="#0f1b3d" stroke-width="2"/>
+  <rect x="40" y="110" width="310" height="40" fill="#0f1b3d" stroke="#0f1b3d" stroke-width="2"/>
+  <text x="195" y="137" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">tipos_astro</text>
+  <text x="52" y="171" font-size="12" font-weight="700" fill="#0f1b3d">PK</text>
+  <text x="84" y="171" font-size="15" font-weight="700" fill="#1a1a1a">id_tipo_astro</text>
+  <text x="338" y="171" text-anchor="end" font-size="12.5" fill="#5b6270">SERIAL</text>
+  <text x="52" y="201" font-size="12" font-weight="700" fill="#5b6270">UQ</text>
+  <text x="84" y="201" font-size="15" font-weight="400" fill="#1a1a1a">nombre</text>
+  <text x="338" y="201" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(60)</text>
+  <text x="84" y="231" font-size="15" font-weight="400" fill="#1a1a1a">descripcion</text>
+  <text x="338" y="231" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(200)</text>
+  <rect x="40" y="390" width="310" height="198" fill="#eef1fa" stroke="#0f1b3d" stroke-width="2"/>
+  <rect x="40" y="390" width="310" height="40" fill="#0f1b3d" stroke="#0f1b3d" stroke-width="2"/>
+  <text x="195" y="417" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">astros</text>
+  <text x="52" y="451" font-size="12" font-weight="700" fill="#0f1b3d">PK</text>
+  <text x="84" y="451" font-size="15" font-weight="700" fill="#1a1a1a">id_astro</text>
+  <text x="338" y="451" text-anchor="end" font-size="12.5" fill="#5b6270">SERIAL</text>
+  <text x="52" y="481" font-size="12" font-weight="700" fill="#5b6270">UQ</text>
+  <text x="84" y="481" font-size="15" font-weight="400" fill="#1a1a1a">nombre</text>
+  <text x="338" y="481" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(80)</text>
+  <text x="52" y="511" font-size="12" font-weight="700" fill="#8a6200">FK</text>
+  <text x="84" y="511" font-size="15" font-weight="400" fill="#1a1a1a">id_tipo_astro</text>
+  <text x="338" y="511" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="84" y="541" font-size="15" font-weight="400" fill="#1a1a1a">constelacion</text>
+  <text x="338" y="541" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(60)</text>
+  <text x="84" y="571" font-size="15" font-weight="400" fill="#1a1a1a">visible_a_simple_vista</text>
+  <text x="338" y="571" text-anchor="end" font-size="12.5" fill="#5b6270">BOOLEAN</text>
+  <rect x="445" y="180" width="310" height="288" fill="#fdf6e0" stroke="#8a6200" stroke-width="2"/>
+  <rect x="445" y="180" width="310" height="40" fill="#e0a100" stroke="#8a6200" stroke-width="2"/>
+  <text x="600" y="207" text-anchor="middle" font-size="19" font-weight="700" fill="#0f1b3d">observaciones</text>
+  <text x="457" y="241" font-size="12" font-weight="700" fill="#0f1b3d">PK</text>
+  <text x="489" y="241" font-size="15" font-weight="700" fill="#1a1a1a">id_observacion</text>
+  <text x="743" y="241" text-anchor="end" font-size="12.5" fill="#5b6270">SERIAL</text>
+  <text x="489" y="271" font-size="15" font-weight="400" fill="#1a1a1a">fecha</text>
+  <text x="743" y="271" text-anchor="end" font-size="12.5" fill="#5b6270">DATE</text>
+  <text x="457" y="301" font-size="12" font-weight="700" fill="#8a6200">FK</text>
+  <text x="489" y="301" font-size="15" font-weight="400" fill="#1a1a1a">id_astronomo</text>
+  <text x="743" y="301" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="457" y="331" font-size="12" font-weight="700" fill="#8a6200">FK</text>
+  <text x="489" y="331" font-size="15" font-weight="400" fill="#1a1a1a">id_telescopio</text>
+  <text x="743" y="331" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="457" y="361" font-size="12" font-weight="700" fill="#8a6200">FK</text>
+  <text x="489" y="361" font-size="15" font-weight="400" fill="#1a1a1a">id_astro</text>
+  <text x="743" y="361" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="489" y="391" font-size="15" font-weight="400" fill="#1a1a1a">duracion_min</text>
+  <text x="743" y="391" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="489" y="421" font-size="15" font-weight="400" fill="#1a1a1a">calidad_cielo</text>
+  <text x="743" y="421" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="489" y="451" font-size="15" font-weight="400" fill="#1a1a1a">notas</text>
+  <text x="743" y="451" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(300)</text>
+  <rect x="850" y="110" width="310" height="168" fill="#eef1fa" stroke="#0f1b3d" stroke-width="2"/>
+  <rect x="850" y="110" width="310" height="40" fill="#0f1b3d" stroke="#0f1b3d" stroke-width="2"/>
+  <text x="1005" y="137" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">astronomos</text>
+  <text x="862" y="171" font-size="12" font-weight="700" fill="#0f1b3d">PK</text>
+  <text x="894" y="171" font-size="15" font-weight="700" fill="#1a1a1a">id_astronomo</text>
+  <text x="1148" y="171" text-anchor="end" font-size="12.5" fill="#5b6270">SERIAL</text>
+  <text x="862" y="201" font-size="12" font-weight="700" fill="#5b6270">UQ</text>
+  <text x="894" y="201" font-size="15" font-weight="400" fill="#1a1a1a">documento</text>
+  <text x="1148" y="201" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(15)</text>
+  <text x="894" y="231" font-size="15" font-weight="400" fill="#1a1a1a">nombre</text>
+  <text x="1148" y="231" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(100)</text>
+  <text x="862" y="261" font-size="12" font-weight="700" fill="#5b6270">UQ</text>
+  <text x="894" y="261" font-size="15" font-weight="400" fill="#1a1a1a">correo</text>
+  <text x="1148" y="261" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(120)</text>
+  <rect x="850" y="390" width="310" height="198" fill="#eef1fa" stroke="#0f1b3d" stroke-width="2"/>
+  <rect x="850" y="390" width="310" height="40" fill="#0f1b3d" stroke="#0f1b3d" stroke-width="2"/>
+  <text x="1005" y="417" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">telescopios</text>
+  <text x="862" y="451" font-size="12" font-weight="700" fill="#0f1b3d">PK</text>
+  <text x="894" y="451" font-size="15" font-weight="700" fill="#1a1a1a">id_telescopio</text>
+  <text x="1148" y="451" text-anchor="end" font-size="12.5" fill="#5b6270">SERIAL</text>
+  <text x="862" y="481" font-size="12" font-weight="700" fill="#5b6270">UQ</text>
+  <text x="894" y="481" font-size="15" font-weight="400" fill="#1a1a1a">codigo</text>
+  <text x="1148" y="481" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(10)</text>
+  <text x="894" y="511" font-size="15" font-weight="400" fill="#1a1a1a">nombre</text>
+  <text x="1148" y="511" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(80)</text>
+  <text x="894" y="541" font-size="15" font-weight="400" fill="#1a1a1a">tipo</text>
+  <text x="1148" y="541" text-anchor="end" font-size="12.5" fill="#5b6270">VARCHAR(20)</text>
+  <text x="894" y="571" font-size="15" font-weight="400" fill="#1a1a1a">apertura_mm</text>
+  <text x="1148" y="571" text-anchor="end" font-size="12.5" fill="#5b6270">INTEGER</text>
+  <text x="40" y="646" font-size="13.5" fill="#5b6270">PK = llave primaria      FK = llave foránea      UQ = valor único (no se puede repetir)</text>
+  <text x="40" y="668" font-size="13.5" fill="#5b6270">1 ── N = relación uno a muchos. Ejemplo: un tipo de astro clasifica muchos astros; un astrónomo realiza muchas observaciones.</text>
+</svg>
