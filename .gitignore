@@ -1,0 +1,18 @@
+# Archivos y carpetas que NO se suben a GitHub.
+
+# Entorno virtual: cada quien lo crea en su computador con requirements.txt
+.venv/
+
+# Credenciales reales de la base de datos (se sube solo .env.example)
+.env
+
+# Archivos temporales que Python y pytest generan solos
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Archivos del sistema operativo y del editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
