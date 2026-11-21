@@ -1,0 +1,51 @@
+{#
+  astronomos/formulario.html — Formulario para CREAR y EDITAR un astrónomo.
+
+  La ruta le envía:
+      titulo   -> "Nuevo astrónomo" o "Editar astrónomo"
+      valores  -> lo que se muestra dentro de cada campo
+      errores  -> mensajes de validación (lista vacía si no hay)
+#}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<h1 class="h3 mb-3">{{ titulo }}</h1>
+
+{{ componentes.lista_de_errores(errores) }}
+
+<div class="card">
+  <div class="card-body">
+    {# Sin "action": el formulario se envía (POST) a la misma dirección que lo mostró.
+       "novalidate": el navegador no frena el envío; la validación la hace el servidor. #}
+    <form method="post" novalidate>
+      <div class="row g-3">
+
+        <div class="col-md-4">
+          <label for="documento" class="form-label">Documento *</label>
+          <input type="text" class="form-control" id="documento" name="documento" maxlength="15"
+                 value="{{ valores.documento or '' }}">
+          <div class="form-text">Solo números, sin puntos. No se puede repetir.</div>
+        </div>
+
+        <div class="col-md-8">
+          <label for="nombre" class="form-label">Nombre completo *</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" maxlength="100"
+                 value="{{ valores.nombre or '' }}">
+        </div>
+
+        <div class="col-md-12">
+          <label for="correo" class="form-label">Correo *</label>
+          <input type="email" class="form-control" id="correo" name="correo" maxlength="120"
+                 placeholder="nombre@correo.com" value="{{ valores.correo or '' }}">
+          <div class="form-text">No se puede repetir.</div>
+        </div>
+
+      </div>
+      {{ componentes.botones_de_formulario(url_for("astronomos.listar")) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

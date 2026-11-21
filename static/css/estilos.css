@@ -1,0 +1,88 @@
+/*
+  estilos.css — Estilos propios del proyecto.
+
+  Bootstrap ya trae casi todo. Aquí solo va el "toque" del observatorio:
+  azul noche y dorado estrella.
+*/
+
+/* Los colores del proyecto. Se usan abajo con var(--nombre). */
+:root {
+  --azul-noche: #0f1b3d;
+  --azul-noche-claro: #1c2f66;
+  --dorado-estrella: #e0a100;
+}
+
+body {
+  background-color: #f4f6fb;
+}
+
+/* ---------- Menú superior ---------- */
+.barra-superior {
+  background-color: var(--azul-noche);
+}
+
+.barra-superior .nav-link.active {
+  color: var(--dorado-estrella);
+  font-weight: 600;
+}
+
+/* ---------- Botones (cambia el azul de Bootstrap por el azul noche) ---------- */
+.btn-primary {
+  --bs-btn-bg: var(--azul-noche);
+  --bs-btn-border-color: var(--azul-noche);
+  --bs-btn-hover-bg: var(--azul-noche-claro);
+  --bs-btn-hover-border-color: var(--azul-noche-claro);
+  --bs-btn-active-bg: var(--azul-noche-claro);
+  --bs-btn-active-border-color: var(--azul-noche-claro);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--azul-noche);
+  --bs-btn-border-color: var(--azul-noche);
+  --bs-btn-hover-bg: var(--azul-noche);
+  --bs-btn-hover-border-color: var(--azul-noche);
+  --bs-btn-active-bg: var(--azul-noche);
+  --bs-btn-active-border-color: var(--azul-noche);
+}
+
+/* ---------- Tablas de los listados ---------- */
+.table thead th {
+  background-color: var(--azul-noche);
+  color: #fff;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Estrellas de la calidad del cielo en el listado de observaciones */
+.estrellas {
+  color: var(--dorado-estrella);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ---------- Página de inicio ---------- */
+.portada {
+  background: linear-gradient(135deg, var(--azul-noche), #27408b);
+  color: #fff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+}
+
+.tarjeta-enlace {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tarjeta-tabla {
+  border-top: 4px solid var(--dorado-estrella);
+}
+
+.tarjeta-enlace:hover .tarjeta-tabla {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta-tabla .numero {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--azul-noche);
+}

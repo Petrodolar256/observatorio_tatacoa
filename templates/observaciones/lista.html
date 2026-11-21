@@ -1,0 +1,62 @@
+{# observaciones/lista.html — LISTAR: observaciones con los NOMBRES de astrónomo, telescopio y astro. #}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}Observaciones{% endblock %}
+
+{% block contenido %}
+{{ componentes.encabezado_de_lista("Observaciones", "journal-text", observaciones|length, url_for("observaciones.crear")) }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Astrónomo</th>
+          <th>Telescopio</th>
+          <th>Astro y notas</th>
+          <th class="text-end">Duración</th>
+          <th>Cielo</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# "observaciones" llega desde la ruta listar() de routes/observaciones.py.
+           astronomo, telescopio y astro son NOMBRES (los traen los JOIN), no id. #}
+        {% for observacion in observaciones %}
+        <tr>
+          <td>{{ observacion.id_observacion }}</td>
+          <td class="text-nowrap">{{ observacion.fecha.strftime("%d/%m/%Y") }}</td>
+          <td>{{ observacion.astronomo }}</td>
+          <td>
+            <span class="fw-semibold">{{ observacion.codigo_telescopio }}</span><br>
+            <span class="small text-secondary">{{ observacion.telescopio }}</span>
+          </td>
+          <td>
+            <span class="fw-semibold">{{ observacion.astro }}</span><br>
+            <span class="small text-secondary">{{ observacion.notas or "" }}</span>
+          </td>
+          <td class="text-end text-nowrap">{{ observacion.duracion_min }} min</td>
+          {# Calidad del cielo, de 1 a 5, dibujada con estrellas.
+             Ejemplo con calidad 4:  "★" * 4  ->  ★★★★   y   "☆" * 1  ->  ☆ #}
+          <td>
+            <span class="estrellas" title="{{ observacion.calidad_cielo }} de 5">
+              {{- "★" * observacion.calidad_cielo }}{{ "☆" * (5 - observacion.calidad_cielo) -}}
+            </span>
+          </td>
+          <td class="text-end text-nowrap">
+            {{ componentes.botones_de_fila(
+                 url_for("observaciones.editar", id_observacion=observacion.id_observacion),
+                 url_for("observaciones.eliminar", id_observacion=observacion.id_observacion)) }}
+          </td>
+        </tr>
+        {% else %}
+          {{ componentes.fila_sin_registros(8) }}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

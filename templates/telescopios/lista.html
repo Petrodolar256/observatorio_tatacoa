@@ -1,0 +1,47 @@
+{# telescopios/lista.html — LISTAR: tabla con todos los telescopios. #}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}Telescopios{% endblock %}
+
+{% block contenido %}
+{{ componentes.encabezado_de_lista("Telescopios", "binoculars", telescopios|length, url_for("telescopios.crear")) }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Código</th>
+          <th>Marca y modelo</th>
+          <th>Tipo</th>
+          <th class="text-end">Apertura (mm)</th>
+          <th class="text-end">Observaciones</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# "telescopios" llega desde la ruta listar() de routes/telescopios.py #}
+        {% for telescopio in telescopios %}
+        <tr>
+          <td>{{ telescopio.id_telescopio }}</td>
+          <td class="fw-semibold">{{ telescopio.codigo }}</td>
+          <td>{{ telescopio.nombre }}</td>
+          <td><span class="badge text-bg-light border">{{ telescopio.tipo }}</span></td>
+          <td class="text-end">{{ telescopio.apertura_mm }}</td>
+          <td class="text-end">{{ telescopio.cantidad_observaciones }}</td>
+          <td class="text-end text-nowrap">
+            {{ componentes.botones_de_fila(
+                 url_for("telescopios.editar", id_telescopio=telescopio.id_telescopio),
+                 url_for("telescopios.eliminar", id_telescopio=telescopio.id_telescopio)) }}
+          </td>
+        </tr>
+        {% else %}
+          {{ componentes.fila_sin_registros(7) }}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

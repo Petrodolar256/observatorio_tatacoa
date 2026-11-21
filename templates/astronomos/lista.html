@@ -1,0 +1,45 @@
+{# astronomos/lista.html — LISTAR: tabla con todos los astrónomos. #}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}Astrónomos{% endblock %}
+
+{% block contenido %}
+{{ componentes.encabezado_de_lista("Astrónomos", "people", astronomos|length, url_for("astronomos.crear")) }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Documento</th>
+          <th>Nombre completo</th>
+          <th>Correo</th>
+          <th class="text-end">Observaciones</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# "astronomos" llega desde la ruta listar() de routes/astronomos.py #}
+        {% for astronomo in astronomos %}
+        <tr>
+          <td>{{ astronomo.id_astronomo }}</td>
+          <td>{{ astronomo.documento }}</td>
+          <td class="fw-semibold">{{ astronomo.nombre }}</td>
+          <td>{{ astronomo.correo }}</td>
+          <td class="text-end">{{ astronomo.cantidad_observaciones }}</td>
+          <td class="text-end text-nowrap">
+            {{ componentes.botones_de_fila(
+                 url_for("astronomos.editar", id_astronomo=astronomo.id_astronomo),
+                 url_for("astronomos.eliminar", id_astronomo=astronomo.id_astronomo)) }}
+          </td>
+        </tr>
+        {% else %}
+          {{ componentes.fila_sin_registros(6) }}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

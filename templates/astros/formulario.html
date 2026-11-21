@@ -1,0 +1,71 @@
+{#
+  astros/formulario.html — Formulario para CREAR y EDITAR un astro.
+
+  La ruta le envía:
+      titulo   -> "Nuevo astro" o "Editar astro"
+      valores  -> lo que se muestra dentro de cada campo
+      errores  -> mensajes de validación (lista vacía si no hay)
+      tipos    -> opciones de la lista desplegable "Tipo de astro"
+#}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<h1 class="h3 mb-3">{{ titulo }}</h1>
+
+{{ componentes.lista_de_errores(errores) }}
+
+<div class="card">
+  <div class="card-body">
+    {# Sin "action": el formulario se envía (POST) a la misma dirección que lo mostró.
+       "novalidate": el navegador no frena el envío; la validación la hace el servidor. #}
+    <form method="post" novalidate>
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre *</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" maxlength="80"
+                 value="{{ valores.nombre or '' }}">
+        </div>
+
+        {# LLAVE FORÁNEA: se elige de una lista desplegable, no se escribe el id.
+           "selected" deja marcada la opción que ya tenía el registro. Se comparan
+           como texto porque el formulario envía texto y la base de datos, números. #}
+        <div class="col-md-6">
+          <label for="id_tipo_astro" class="form-label">Tipo de astro *</label>
+          <select class="form-select" id="id_tipo_astro" name="id_tipo_astro">
+            <option value="">Selecciona un tipo…</option>
+            {% for tipo in tipos %}
+            <option value="{{ tipo.id_tipo_astro }}"
+                    {{ "selected" if valores.id_tipo_astro|string == tipo.id_tipo_astro|string else "" }}>
+              {{ tipo.nombre }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="constelacion" class="form-label">Constelación</label>
+          <input type="text" class="form-control" id="constelacion" name="constelacion" maxlength="60"
+                 value="{{ valores.constelacion or '' }}">
+          <div class="form-text">Opcional. Los planetas y las lunas no tienen constelación fija.</div>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="visible_a_simple_vista"
+                   name="visible_a_simple_vista" {{ "checked" if valores.visible_a_simple_vista else "" }}>
+            <label class="form-check-label" for="visible_a_simple_vista">
+              Se puede ver a simple vista (sin telescopio)
+            </label>
+          </div>
+        </div>
+
+      </div>
+      {{ componentes.botones_de_formulario(url_for("astros.listar")) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

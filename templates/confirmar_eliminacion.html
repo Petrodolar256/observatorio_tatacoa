@@ -1,0 +1,27 @@
+{#
+  confirmar_eliminacion.html — Pide confirmación antes de eliminar.
+
+  La usan las 5 tablas. Cada ruta eliminar() le envía:
+      descripcion   -> qué se va a eliminar (ej.: el astro «Júpiter»)
+      url_cancelar  -> a dónde volver si el usuario se arrepiente
+#}
+{% extends "base.html" %}
+
+{% block titulo %}Confirmar eliminación{% endblock %}
+
+{% block contenido %}
+<div class="card border-danger mx-auto" style="max-width: 560px">
+  <div class="card-body text-center py-4">
+    <i class="bi bi-exclamation-triangle text-danger fs-1"></i>
+    <h1 class="h4 mt-2">¿Eliminar {{ descripcion }}?</h1>
+    <p class="text-secondary">Esta acción no se puede deshacer.</p>
+
+    {# Sin "action": el formulario se envía (POST) a la misma dirección que
+       mostró esta página, es decir, a la ruta eliminar() de la tabla. #}
+    <form method="post" class="d-flex justify-content-center gap-2">
+      <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Sí, eliminar</button>
+      <a href="{{ url_cancelar }}" class="btn btn-outline-secondary">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

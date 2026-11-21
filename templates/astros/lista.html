@@ -1,0 +1,54 @@
+{# astros/lista.html — LISTAR: tabla con todos los astros y el NOMBRE de su tipo. #}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}Astros{% endblock %}
+
+{% block contenido %}
+{{ componentes.encabezado_de_lista("Astros", "stars", astros|length, url_for("astros.crear")) }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Tipo de astro</th>
+          <th>Constelación</th>
+          <th>¿A simple vista?</th>
+          <th class="text-end">Observaciones</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# "astros" llega desde la ruta listar() de routes/astros.py #}
+        {% for astro in astros %}
+        <tr>
+          <td>{{ astro.id_astro }}</td>
+          <td class="fw-semibold">{{ astro.nombre }}</td>
+          {# astro.tipo es el NOMBRE del tipo (lo trae el JOIN), no su id #}
+          <td><span class="badge text-bg-light border">{{ astro.tipo }}</span></td>
+          <td>{{ astro.constelacion or "" }}</td>
+          <td>
+            {% if astro.visible_a_simple_vista %}
+              <span class="badge text-bg-success">Sí</span>
+            {% else %}
+              <span class="badge text-bg-secondary">No, requiere telescopio</span>
+            {% endif %}
+          </td>
+          <td class="text-end">{{ astro.cantidad_observaciones }}</td>
+          <td class="text-end text-nowrap">
+            {{ componentes.botones_de_fila(
+                 url_for("astros.editar", id_astro=astro.id_astro),
+                 url_for("astros.eliminar", id_astro=astro.id_astro)) }}
+          </td>
+        </tr>
+        {% else %}
+          {{ componentes.fila_sin_registros(7) }}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{#
+  componentes.html — Pedazos de HTML que se repiten en varias páginas.
+
+  Un "macro" de Jinja es como una función: se escribe una sola vez aquí y
+  se usa en las demás plantillas así:
+
+      {% import "componentes.html" as componentes %}
+      {{ componentes.lista_de_errores(errores) }}
+#}
+
+
+{# Título de un listado, con la cantidad de registros y el botón "Nuevo" #}
+{% macro encabezado_de_lista(titulo, icono, cantidad, url_nuevo) %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="h3 mb-0">
+    <i class="bi bi-{{ icono }}"></i> {{ titulo }}
+    <span class="badge text-bg-secondary fs-6 align-middle">{{ cantidad }}</span>
+  </h1>
+  <a href="{{ url_nuevo }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Nuevo</a>
+</div>
+{% endmacro %}
+
+
+{# Botones "Editar" y "Eliminar" de cada fila de un listado.
+   "Eliminar" no borra de una vez: lleva a la página de confirmación. #}
+{% macro botones_de_fila(url_editar, url_eliminar) %}
+<a href="{{ url_editar }}" class="btn btn-sm btn-outline-primary">
+  <i class="bi bi-pencil"></i> Editar
+</a>
+<a href="{{ url_eliminar }}" class="btn btn-sm btn-outline-danger">
+  <i class="bi bi-trash"></i> Eliminar
+</a>
+{% endmacro %}
+
+
+{# Fila que se muestra cuando una tabla todavía no tiene registros #}
+{% macro fila_sin_registros(columnas) %}
+<tr>
+  <td colspan="{{ columnas }}" class="text-center text-secondary py-4">Todavía no hay registros.</td>
+</tr>
+{% endmacro %}
+
+
+{# Cuadro rojo con los errores de validación de un formulario #}
+{% macro lista_de_errores(errores) %}
+{% if errores %}
+<div class="alert alert-danger" role="alert">
+  <strong>No se pudo guardar. Revisa lo siguiente:</strong>
+  <ul class="mb-0">
+    {% for error in errores %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endmacro %}
+
+
+{# Botones "Guardar" y "Cancelar" al final de un formulario #}
+{% macro botones_de_formulario(url_cancelar) %}
+<div class="d-flex gap-2 mt-4">
+  <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Guardar</button>
+  <a href="{{ url_cancelar }}" class="btn btn-outline-secondary">Cancelar</a>
+</div>
+{% endmacro %}
+
+
+{# Tarjeta de la página de inicio: nombre de la tabla y cuántos registros tiene #}
+{% macro tarjeta_de_tabla(titulo, icono, cantidad, url) %}
+<div class="col-6 col-lg">
+  <a class="tarjeta-enlace" href="{{ url }}">
+    <div class="card tarjeta-tabla h-100">
+      <div class="card-body">
+        <div class="text-secondary"><i class="bi bi-{{ icono }}"></i> {{ titulo }}</div>
+        <div class="numero">{{ cantidad }}</div>
+        <div class="small text-secondary">registros</div>
+      </div>
+    </div>
+  </a>
+</div>
+{% endmacro %}

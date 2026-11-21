@@ -1,0 +1,109 @@
+{#
+  observaciones/formulario.html — Formulario para CREAR y EDITAR una observación.
+
+  La ruta le envía:
+      titulo   -> "Nueva observación" o "Editar observación"
+      valores  -> lo que se muestra dentro de cada campo
+      errores  -> mensajes de validación (lista vacía si no hay)
+      listas   -> opciones de las 3 listas desplegables que vienen de otras tablas:
+                  listas.astronomos, listas.telescopios y listas.astros
+      calidades_del_cielo -> opciones fijas de la lista "Calidad del cielo"
+#}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<h1 class="h3 mb-3">{{ titulo }}</h1>
+
+{{ componentes.lista_de_errores(errores) }}
+
+<div class="card">
+  <div class="card-body">
+    {# Sin "action": el formulario se envía (POST) a la misma dirección que lo mostró.
+       "novalidate": el navegador no frena el envío; la validación la hace el servidor. #}
+    <form method="post" novalidate>
+      <div class="row g-3">
+
+        <div class="col-md-4">
+          <label for="fecha" class="form-label">Fecha *</label>
+          <input type="date" class="form-control" id="fecha" name="fecha"
+                 value="{{ valores.fecha or '' }}">
+          <div class="form-text">No puede ser una fecha futura.</div>
+        </div>
+
+        {# LAS 3 LLAVES FORÁNEAS: se eligen de listas desplegables, no se escribe el id.
+           "selected" deja marcada la opción que ya tenía el registro. Se comparan
+           como texto porque el formulario envía texto y la base de datos, números. #}
+        <div class="col-md-8">
+          <label for="id_astronomo" class="form-label">Astrónomo *</label>
+          <select class="form-select" id="id_astronomo" name="id_astronomo">
+            <option value="">Selecciona un astrónomo…</option>
+            {% for astronomo in listas.astronomos %}
+            <option value="{{ astronomo.id_astronomo }}"
+                    {{ "selected" if valores.id_astronomo|string == astronomo.id_astronomo|string else "" }}>
+              {{ astronomo.nombre }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="id_telescopio" class="form-label">Telescopio *</label>
+          <select class="form-select" id="id_telescopio" name="id_telescopio">
+            <option value="">Selecciona un telescopio…</option>
+            {% for telescopio in listas.telescopios %}
+            <option value="{{ telescopio.id_telescopio }}"
+                    {{ "selected" if valores.id_telescopio|string == telescopio.id_telescopio|string else "" }}>
+              {{ telescopio.codigo }} — {{ telescopio.nombre }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="id_astro" class="form-label">Astro *</label>
+          <select class="form-select" id="id_astro" name="id_astro">
+            <option value="">Selecciona un astro…</option>
+            {% for astro in listas.astros %}
+            <option value="{{ astro.id_astro }}"
+                    {{ "selected" if valores.id_astro|string == astro.id_astro|string else "" }}>
+              {{ astro.nombre }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="duracion_min" class="form-label">Duración (minutos) *</label>
+          <input type="number" class="form-control" id="duracion_min" name="duracion_min" min="1"
+                 value="{{ valores.duracion_min or '' }}">
+        </div>
+
+        {# Lista desplegable con valores FIJOS (no vienen de otra tabla): del 1 al 5 #}
+        <div class="col-md-6">
+          <label for="calidad_cielo" class="form-label">Calidad del cielo *</label>
+          <select class="form-select" id="calidad_cielo" name="calidad_cielo">
+            <option value="">Selecciona de 1 a 5…</option>
+            {% for numero, texto in calidades_del_cielo %}
+            <option value="{{ numero }}" {{ "selected" if valores.calidad_cielo|string == numero|string else "" }}>
+              {{ texto }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-12">
+          <label for="notas" class="form-label">Notas</label>
+          <textarea class="form-control" id="notas" name="notas" rows="3"
+                    maxlength="300">{{ valores.notas or '' }}</textarea>
+          <div class="form-text">Opcional. Qué se alcanzó a ver.</div>
+        </div>
+
+      </div>
+      {{ componentes.botones_de_formulario(url_for("observaciones.listar")) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

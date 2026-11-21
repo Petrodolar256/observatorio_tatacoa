@@ -1,0 +1,19 @@
+{# sin_conexion.html — Se muestra cuando la aplicación no logra conectarse a PostgreSQL. #}
+{% extends "base.html" %}
+
+{% block titulo %}Sin conexión a la base de datos{% endblock %}
+
+{% block contenido %}
+<div class="alert alert-danger mx-auto" style="max-width: 760px">
+  <h1 class="h4"><i class="bi bi-plug"></i> No se pudo conectar a PostgreSQL</h1>
+  <p>Revisa, en este orden:</p>
+  <ol>
+    <li>Que el servidor PostgreSQL esté encendido.</li>
+    <li>Que exista el archivo <code>.env</code> en la carpeta del proyecto (es una copia de <code>.env.example</code>).</li>
+    <li>Que <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_USER</code> y <code>DB_PASSWORD</code> del <code>.env</code> sean los de tu PostgreSQL.</li>
+    <li>Que la base de datos exista. Se crea con: <code>python crear_base_de_datos.py</code></li>
+  </ol>
+  <p class="mb-1"><strong>Detalle técnico:</strong></p>
+  <pre class="small mb-0 text-wrap">{{ detalle }}</pre>
+</div>
+{% endblock %}

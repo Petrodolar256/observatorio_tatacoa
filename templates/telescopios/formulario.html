@@ -1,0 +1,63 @@
+{#
+  telescopios/formulario.html — Formulario para CREAR y EDITAR un telescopio.
+
+  La ruta le envía:
+      titulo               -> "Nuevo telescopio" o "Editar telescopio"
+      valores              -> lo que se muestra dentro de cada campo
+      errores              -> mensajes de validación (lista vacía si no hay)
+      tipos_de_telescopio  -> opciones fijas de la lista desplegable "Tipo"
+#}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<h1 class="h3 mb-3">{{ titulo }}</h1>
+
+{{ componentes.lista_de_errores(errores) }}
+
+<div class="card">
+  <div class="card-body">
+    {# Sin "action": el formulario se envía (POST) a la misma dirección que lo mostró.
+       "novalidate": el navegador no frena el envío; la validación la hace el servidor. #}
+    <form method="post" novalidate>
+      <div class="row g-3">
+
+        <div class="col-md-3">
+          <label for="codigo" class="form-label">Código *</label>
+          <input type="text" class="form-control" id="codigo" name="codigo" maxlength="10"
+                 placeholder="TEL-11" value="{{ valores.codigo or '' }}">
+          <div class="form-text">Placa de inventario. No se puede repetir.</div>
+        </div>
+
+        <div class="col-md-9">
+          <label for="nombre" class="form-label">Marca y modelo *</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" maxlength="80"
+                 value="{{ valores.nombre or '' }}">
+        </div>
+
+        {# Lista desplegable con valores FIJOS (no vienen de otra tabla) #}
+        <div class="col-md-6">
+          <label for="tipo" class="form-label">Tipo *</label>
+          <select class="form-select" id="tipo" name="tipo">
+            <option value="">Selecciona un tipo…</option>
+            {% for tipo in tipos_de_telescopio %}
+            <option value="{{ tipo }}" {{ "selected" if valores.tipo == tipo else "" }}>{{ tipo }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="apertura_mm" class="form-label">Apertura (mm) *</label>
+          <input type="number" class="form-control" id="apertura_mm" name="apertura_mm" min="1"
+                 value="{{ valores.apertura_mm or '' }}">
+          <div class="form-text">Diámetro del lente o espejo principal, en milímetros.</div>
+        </div>
+
+      </div>
+      {{ componentes.botones_de_formulario(url_for("telescopios.listar")) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

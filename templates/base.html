@@ -1,0 +1,93 @@
+{#
+  base.html — Plantilla base. TODAS las páginas heredan de esta.
+
+  Aquí está lo que se repite en todo el sitio: el menú superior, el lugar
+  de los mensajes y el pie de página. Cada página solo rellena dos bloques:
+
+      {% block titulo %}     -> el título de la pestaña del navegador
+      {% block contenido %}  -> lo propio de esa página
+#}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Inicio{% endblock %} · Observatorio de la Tatacoa</title>
+
+  {# Bootstrap 5 y sus iconos: son copias locales (carpeta static/vendor),
+     así la aplicación se ve bien aunque no haya internet. #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
+  {# Estilos propios del proyecto #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+
+{# ------------------------------------------------------------------
+   MENÚ SUPERIOR: un enlace por tabla.
+   request.blueprint dice en qué tabla está el usuario; la clase
+   "active" resalta ese enlace.
+   ------------------------------------------------------------------ #}
+<nav class="navbar navbar-expand-lg navbar-dark barra-superior">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('inicio') }}">
+      <i class="bi bi-moon-stars"></i> Observatorio de la Tatacoa
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+            aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.blueprint == 'tipos_astro' else '' }}"
+             href="{{ url_for('tipos_astro.listar') }}"><i class="bi bi-tags"></i> Tipos de astro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.blueprint == 'astros' else '' }}"
+             href="{{ url_for('astros.listar') }}"><i class="bi bi-stars"></i> Astros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.blueprint == 'telescopios' else '' }}"
+             href="{{ url_for('telescopios.listar') }}"><i class="bi bi-binoculars"></i> Telescopios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.blueprint == 'astronomos' else '' }}"
+             href="{{ url_for('astronomos.listar') }}"><i class="bi bi-people"></i> Astrónomos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ 'active' if request.blueprint == 'observaciones' else '' }}"
+             href="{{ url_for('observaciones.listar') }}"><i class="bi bi-journal-text"></i> Observaciones</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+
+  {# ----------------------------------------------------------------
+     MENSAJES DE UNA SOLA VEZ ("flash"): los envían las rutas con
+     flash("texto", "success") o flash("texto", "danger").
+     La categoría decide el color: success = verde, danger = rojo.
+     ---------------------------------------------------------------- #}
+  {% for categoria, mensaje in get_flashed_messages(with_categories=true) %}
+  <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+    {{ mensaje }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+  </div>
+  {% endfor %}
+
+  {# Aquí cada página pone su contenido #}
+  {% block contenido %}{% endblock %}
+
+</main>
+
+<footer class="text-center text-secondary small pb-4">
+  Proyecto final de Programación Web · Flask + PostgreSQL + Bootstrap 5
+</footer>
+
+{# JavaScript de Bootstrap: abre el menú en celulares y cierra los mensajes #}
+<script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

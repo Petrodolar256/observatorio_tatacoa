@@ -1,0 +1,43 @@
+{# tipos_astro/lista.html — LISTAR: tabla con todos los tipos de astro. #}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}Tipos de astro{% endblock %}
+
+{% block contenido %}
+{{ componentes.encabezado_de_lista("Tipos de astro", "tags", tipos|length, url_for("tipos_astro.crear")) }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th class="text-end">Astros de este tipo</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# "tipos" llega desde la ruta listar() de routes/tipos_astro.py #}
+        {% for tipo in tipos %}
+        <tr>
+          <td>{{ tipo.id_tipo_astro }}</td>
+          <td class="fw-semibold">{{ tipo.nombre }}</td>
+          <td class="text-secondary">{{ tipo.descripcion or "" }}</td>
+          <td class="text-end">{{ tipo.cantidad_astros }}</td>
+          <td class="text-end text-nowrap">
+            {{ componentes.botones_de_fila(
+                 url_for("tipos_astro.editar", id_tipo_astro=tipo.id_tipo_astro),
+                 url_for("tipos_astro.eliminar", id_tipo_astro=tipo.id_tipo_astro)) }}
+          </td>
+        </tr>
+        {% else %}
+          {{ componentes.fila_sin_registros(5) }}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

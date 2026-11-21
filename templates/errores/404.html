@@ -1,0 +1,12 @@
+{# 404.html — Se muestra cuando la dirección o el registro pedido no existe. #}
+{% extends "base.html" %}
+
+{% block titulo %}No encontrado{% endblock %}
+
+{% block contenido %}
+<div class="text-center py-5">
+  <h1 class="display-4">404</h1>
+  <p class="text-secondary">La página o el registro que buscas no existe.</p>
+  <a href="{{ url_for('inicio') }}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

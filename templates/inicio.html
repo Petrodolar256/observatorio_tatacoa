@@ -1,0 +1,24 @@
+{# inicio.html — Página de inicio: una tarjeta por tabla con su cantidad de registros. #}
+{% extends "base.html" %}
+{% import "componentes.html" as componentes %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+<div class="portada mb-4">
+  <h1 class="h2"><i class="bi bi-moon-stars"></i> Observatorio Astronómico de la Tatacoa</h1>
+  <p class="mb-0">
+    Registro de las observaciones del cielo: qué astrónomo observó qué astro y con cuál telescopio.
+    Elige una tabla para consultar, crear, editar o eliminar registros.
+  </p>
+</div>
+
+{# "conteos" llega desde la ruta inicio() de app.py #}
+<div class="row g-3">
+  {{ componentes.tarjeta_de_tabla("Tipos de astro", "tags", conteos.tipos_astro, url_for("tipos_astro.listar")) }}
+  {{ componentes.tarjeta_de_tabla("Astros", "stars", conteos.astros, url_for("astros.listar")) }}
+  {{ componentes.tarjeta_de_tabla("Telescopios", "binoculars", conteos.telescopios, url_for("telescopios.listar")) }}
+  {{ componentes.tarjeta_de_tabla("Astrónomos", "people", conteos.astronomos, url_for("astronomos.listar")) }}
+  {{ componentes.tarjeta_de_tabla("Observaciones", "journal-text", conteos.observaciones, url_for("observaciones.listar")) }}
+</div>
+{% endblock %}
